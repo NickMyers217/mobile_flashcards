@@ -1,4 +1,8 @@
-const STATE = {
+import { AsyncStorage } from 'react-native';
+
+const STATE_KEY = 'state';
+// Example of the state structure
+const STATE_EXAMPLE = {
   React: {
     title: 'React',
     questions: [
@@ -23,13 +27,19 @@ const STATE = {
   }
 };
 
-// TODO: do I need to do this?
-export const initializeStorage = () => ({});
+export const getDecks = () => AsyncStorage
+  .getItem(STATE_KEY);
 
-export const getDecks = () => ({});
+export const getDeck = (title) => AsyncStorage
+  .getItem(`${STATE_KEY}:${title}`);
 
-export const getDeck = (title) => ({});
+export const saveDeckTitle = (title) => AsyncStorage
+  .setItem(`${STATE_KEY}:${title}`, JSON.stringify({
+    title,
+    questions: []
+  }));
 
-export const saveDeckTitle = (title) => ({});
-
-export const addCardToDeck = (title, card) => ({});
+export const addCardToDeck = (title, card) => AsyncStorage
+  .mergeItem(`${STATE_KEY}:${title}`, JSON.stringify({
+    questions: [card]
+  }));
