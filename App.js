@@ -1,13 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
+
+import { getDecks, getDeck, saveDeckTitle, addCardToDeck } from './utils/api';
 
 export default class App extends React.Component {
+  state = {}
+
+  componentDidMount() {
+    getDecks()
+      .then((state) => {
+        console.log('state =>', state);
+        this.setState(() => state);
+      })
+      .catch(console.error);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Text>{JSON.stringify(this.state, null, 2)}</Text>
       </View>
     );
   }
