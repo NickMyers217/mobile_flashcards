@@ -1,34 +1,54 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, StatusBar } from 'react-native';
+import { TabNavigator } from 'react-navigation';
+import { Constants } from 'expo';
 
 import { getDecks, getDeck, saveDeckTitle, addCardToDeck } from './utils/api';
 
-export default class App extends React.Component {
-  state = {}
+const DeckList = () => (
+  <View style={{flex: 1}}>
+    <Text>Deck List</Text>
+  </View>
+);
 
-  componentDidMount() {
-    getDecks()
-      .then((state) => {
-        console.log('state =>', state);
-        this.setState(() => state);
-      })
-      .catch(console.error);
+const NewDeck = () => (
+  <View style={{flex: 1}}>
+    <Text>New Deck</Text>
+  </View>
+);
+
+const Tabs = TabNavigator({
+  Decks: {
+    screen: DeckList,
+    navigationOptions: {
+      tabBarLabel: 'Decks'
+    }
+  },
+  NewDeck: {
+    screen: NewDeck,
+    navigationOptions: {
+      tabBarLabel: 'New Deck'
+    }
   }
+}, {
+  tabBarOptions: {
+    activeTintColor: 'green',
+    style: {
+      height: 56,
+      backgroundColor: 'purple'
+    }
+  }
+});
 
+export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>{JSON.stringify(this.state, null, 2)}</Text>
+      <View style={{flex: 1}}>
+        <View style={{backgroundColor: 'black', height: Constants.statusBarHeight}}>
+          <StatusBar translucent backgroundColor={'black'} />
+        </View>
+        <Tabs />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
