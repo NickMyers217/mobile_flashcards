@@ -1,21 +1,10 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View, StatusBar } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import { Constants } from 'expo';
 
-import { getDecks, getDeck, saveDeckTitle, addCardToDeck } from './utils/api';
-
-const DeckList = () => (
-  <View style={{flex: 1}}>
-    <Text>Deck List</Text>
-  </View>
-);
-
-const NewDeck = () => (
-  <View style={{flex: 1}}>
-    <Text>New Deck</Text>
-  </View>
-);
+import DeckList from './components/DeckList';
+import NewDeck from './components/NewDeck';
 
 const Tabs = TabNavigator({
   Decks: {
