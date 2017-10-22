@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 import { getDecks } from '../utils/api';
@@ -16,28 +16,44 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: '#999'
+  },
+  deckTile: {
+    marginBottom: 2,
+    width: 160,
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
+    width: 300
+  },
+  deckTileText: {
+    padding: 10,
+    color: 'white'
   }
 });
 
-const Deck = ({ title, questions=[] }) => (
-  <View style={styles.container}>
-    <Text>{title}</Text>
-    <Text style={styles.mutedText}>
-      {`${questions.length} cards`}
-    </Text>
-  </View>
+const DeckTile = ({ title, questions=[], onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <View style={[styles.container, styles.deckTile]}>
+      <Text style={styles.deckTileText}>{title}</Text>
+      <Text style={{color: '#bbb'}}>
+        {`${questions.length} cards`}
+      </Text>
+    </View>
+  </TouchableOpacity>
 );
 
-const DeckList = ({ decks=[] }) => (
+const DeckList = ({ decks=[], navigation }) => (
   <View style={styles.container}>
     {decks.length > 0 &&
       <FlatList
         data={decks.map(deck => ({ key: deck.title, data: deck }))}
-        renderItem={({ item }) => <Deck {...item.data} />} />}
+        renderItem={({ item }) =>
+          <DeckTile {...item.data}
+            onPress={() => navigation.navigate('Deck', item.data)} />}
+      />}
     {decks.length === 0 &&
       <View style={styles.container}>
-        <FontAwesome name='frown-o' size={40} style={[styles.icon, {fontSize: 50}]} />
-        <Text style={[styles.mutedText, {fontSize: 20}]}>There are no decks here yet!</Text>
+        <FontAwesome name='frown-o' size={40} style={[styles.icon, { fontSize: 50 }]} />
+        <Text style={[styles.mutedText, { fontSize: 20 }]}>There are no decks here yet!</Text>
       </View>}
   </View>
 );
