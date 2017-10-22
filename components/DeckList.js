@@ -12,6 +12,8 @@ const Deck = ({ title }) => (
 export default class DeckList extends React.Component {
   state = {}
 
+  // TODO: Move this into the app component
+  // TODO: Make this run every time they navigate here
   componentDidMount() {
     getDecks()
       .then(decks => {

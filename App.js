@@ -1,33 +1,8 @@
 import React from 'react';
-import { Text, View, StatusBar } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { View, StatusBar } from 'react-native';
 import { Constants } from 'expo';
 
-import DeckList from './components/DeckList';
-import NewDeck from './components/NewDeck';
-
-const Tabs = TabNavigator({
-  Decks: {
-    screen: DeckList,
-    navigationOptions: {
-      tabBarLabel: 'Decks'
-    }
-  },
-  NewDeck: {
-    screen: NewDeck,
-    navigationOptions: {
-      tabBarLabel: 'New Deck'
-    }
-  }
-}, {
-  tabBarOptions: {
-    activeTintColor: 'green',
-    style: {
-      height: 56,
-      backgroundColor: 'purple'
-    }
-  }
-});
+import Home from './components/Home';
 
 export default class App extends React.Component {
   render() {
@@ -36,7 +11,7 @@ export default class App extends React.Component {
         <View style={{backgroundColor: 'black', height: Constants.statusBarHeight}}>
           <StatusBar translucent backgroundColor={'black'} />
         </View>
-        <Tabs />
+        <Home />
       </View>
     );
   }
