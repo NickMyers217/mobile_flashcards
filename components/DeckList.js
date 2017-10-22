@@ -1,33 +1,45 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 import { getDecks } from '../utils/api';
 
-const Deck = ({ title }) => (
-  <View style={{flex: 1}}>
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10
+  },
+  mutedText: {
+    color: '#999'
+  },
+  icon: {
+    color: '#999'
+  }
+});
+
+const Deck = ({ title, questions=[] }) => (
+  <View style={styles.container}>
     <Text>{title}</Text>
+    <Text style={styles.mutedText}>
+      {`${questions.length} cards`}
+    </Text>
   </View>
 );
 
-export default class DeckList extends React.Component {
-  state = {}
+const DeckList = ({ decks=[] }) => (
+  <View style={styles.container}>
+    {decks.length > 0 &&
+      <FlatList
+        data={decks.map(deck => ({ key: deck.title, data: deck }))}
+        renderItem={({ item }) => <Deck {...item.data} />} />}
+    {decks.length === 0 &&
+      <View style={styles.container}>
+        <FontAwesome name='frown-o' size={40} style={[styles.icon, {fontSize: 50}]} />
+        <Text style={[styles.mutedText, {fontSize: 20}]}>There are no decks here yet!</Text>
+      </View>}
+  </View>
+);
 
-  // TODO: Move this into the app component
-  // TODO: Make this run every time they navigate here
-  componentDidMount() {
-    getDecks()
-      .then(decks => {
-        this.setState(() => decks);
-      });
-  }
-
-  render() {
-    return (
-      <View style={{flex: 1}}>
-        <FlatList
-          data={Object.keys(this.state).map(key => ({key, data: this.state[key]}))}
-          renderItem={({ item }) => <Deck {...item.data} />} />
-      </View>
-    );
-  }
-};
+export default DeckList;

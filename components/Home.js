@@ -1,18 +1,20 @@
 import React from 'react';
+import { View, StatusBar } from 'react-native';
 import { TabNavigator } from 'react-navigation';
+import { Constants } from 'expo';
 
-import DeckList from './DeckList';
-import NewDeck from './NewDeck';
+import DeckListContainer from '../containers/DeckList';
+import NewDeckContainer from '../containers/NewDeck';
 
-const Home = TabNavigator({
+const Tabs = TabNavigator({
   Decks: {
-    screen: DeckList,
+    screen: DeckListContainer,
     navigationOptions: {
       tabBarLabel: 'Decks'
     }
   },
   NewDeck: {
-    screen: NewDeck,
+    screen: NewDeckContainer,
     navigationOptions: {
       tabBarLabel: 'New Deck'
     }
@@ -27,4 +29,21 @@ const Home = TabNavigator({
   }
 });
 
-export default Home;
+export default class Home extends React.Component {
+  componentDidMount() {
+    console.log('Loading decks into redux from AsyncStorage!')
+    this.props.loadDecksFromStorage()
+      .then(() => console.log('Decks loaded!'));
+  }
+
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <View style={{ backgroundColor: 'black', height: Constants.statusBarHeight }}>
+          <StatusBar translucent backgroundColor={'black'} />
+        </View>
+        <Tabs />
+      </View>
+    );
+  }
+};

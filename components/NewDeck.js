@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 
-import { saveDeckTitle } from '../utils/api';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -38,11 +36,6 @@ export default class NewDeck extends React.Component {
     text: ''
   }
 
-  // TODO: Move this into the App component
-  addDeck() {
-    saveDeckTitle(this.state.text);
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -50,7 +43,7 @@ export default class NewDeck extends React.Component {
         <TextInput style={styles.input}
           placeholder='Deck title'
           onChangeText={(text) => this.setState(() => ({ text }))} />
-        <TouchableOpacity onPress={this.addDeck.bind(this)}>
+        <TouchableOpacity onPress={() => this.props.addNewDeck(this.state.text)}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Add Deck</Text>
           </View>
