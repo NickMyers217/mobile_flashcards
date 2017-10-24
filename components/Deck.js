@@ -46,12 +46,16 @@ export default class Deck extends React.Component {
         <Text style={[styles.mutedText, {marginBottom: 40}]}>
           {`${(deck.questions && deck.questions.length) || 0} cards`}
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('AddCard', {title: deck.title})}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('AddCard', {title: deck.title})}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Add Card</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            if(deck.questions && deck.questions.length > 0) { navigation.navigate('Quiz', {title: deck.title}); }
+          }}>
           <View style={styles.buttonLight}>
             <Text style={styles.buttonText}>Start Quiz</Text>
           </View>

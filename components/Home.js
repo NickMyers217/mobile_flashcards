@@ -7,6 +7,7 @@ import DeckListContainer from '../containers/DeckList';
 import NewDeckContainer from '../containers/NewDeck';
 import AddCardContainer from '../containers/AddCard';
 import DeckContainer from '../containers/Deck';
+import QuizContainer from '../containers/Quiz';
 
 const Tabs = TabNavigator({
   Decks: {
@@ -50,12 +51,21 @@ const Routes = StackNavigator({
   AddCard: {
     screen: AddCardContainer,
     navigationOptions: {
-
       headerTintColor: 'white',
       headerStyle: {
         backgroundColor: 'blue'
       },
       title: 'Add Card'
+    }
+  },
+  Quiz: {
+    screen: QuizContainer,
+    navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'blue'
+      },
+      title: 'Quiz'
     }
   }
 }, {
