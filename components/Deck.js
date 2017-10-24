@@ -39,8 +39,7 @@ export default class Deck extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    const deck = navigation.state.params;
+    const { navigation, deck } = this.props;
     return (
       <View style={styles.container}>
         <Text style={{marginBottom: 20}}>{deck.title}</Text>

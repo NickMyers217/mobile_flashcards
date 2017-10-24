@@ -6,7 +6,7 @@ import { Constants } from 'expo';
 import DeckListContainer from '../containers/DeckList';
 import NewDeckContainer from '../containers/NewDeck';
 import AddCardContainer from '../containers/AddCard';
-import Deck from './Deck';
+import DeckContainer from '../containers/Deck';
 
 const Tabs = TabNavigator({
   Decks: {
@@ -39,7 +39,7 @@ const Routes = StackNavigator({
     }
   },
   Deck: {
-    screen: Deck,
+    screen: DeckContainer,
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {
