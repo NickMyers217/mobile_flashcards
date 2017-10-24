@@ -5,6 +5,7 @@ import { Constants } from 'expo';
 
 import DeckListContainer from '../containers/DeckList';
 import NewDeckContainer from '../containers/NewDeck';
+import AddCardContainer from '../containers/AddCard';
 import Deck from './Deck';
 
 const Tabs = TabNavigator({
@@ -45,6 +46,17 @@ const Routes = StackNavigator({
         backgroundColor: 'blue'
       }
     }
+  },
+  AddCard: {
+    screen: AddCardContainer,
+    navigationOptions: {
+
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'blue'
+      },
+      title: 'Add Card'
+    }
   }
 }, {
   initialRouteName: 'Tabs'
@@ -52,9 +64,7 @@ const Routes = StackNavigator({
 
 export default class Home extends React.Component {
   componentDidMount() {
-    console.log('Loading decks into redux from AsyncStorage!')
-    this.props.loadDecksFromStorage()
-      .then(() => console.log('Decks loaded!'));
+    this.props.loadDecksFromStorage();
   }
 
   render() {

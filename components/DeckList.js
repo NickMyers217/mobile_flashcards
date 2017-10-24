@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 import { getDecks } from '../utils/api';
+import DeckListTile from './DeckListTile';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,24 +31,14 @@ const styles = StyleSheet.create({
   }
 });
 
-const DeckTile = ({ title, questions=[], onPress }) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={[styles.container, styles.deckTile]}>
-      <Text style={styles.deckTileText}>{title}</Text>
-      <Text style={{color: '#bbb'}}>
-        {`${questions.length} cards`}
-      </Text>
-    </View>
-  </TouchableOpacity>
-);
-
 const DeckList = ({ decks=[], navigation }) => (
   <View style={styles.container}>
     {decks.length > 0 &&
       <FlatList
         data={decks.map(deck => ({ key: deck.title, data: deck }))}
         renderItem={({ item }) =>
-          <DeckTile {...item.data}
+          <DeckListTile
+            {...item.data}
             onPress={() => navigation.navigate('Deck', item.data)} />}
       />}
     {decks.length === 0 &&

@@ -7,7 +7,7 @@ import {
 const reducer = (state={}, action) => {
   switch (action.type) {
     case LOAD_DECKS:
-      return action.decks;
+      return action.decks || state;
     case SAVE_NEW_DECK:
       return {
         ...state,
@@ -16,7 +16,7 @@ const reducer = (state={}, action) => {
     case ADD_CARD_TO_DECK:
       return {
         ...state,
-        [state[action.title]]: {
+        [action.title]: {
           ...state[action.title],
           questions: (state[action.title].questions || []).concat(action.card)
         }
