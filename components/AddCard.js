@@ -16,18 +16,31 @@ export default class NewDeck extends React.Component {
     answer: ''
   }
 
+  clearForm = () => {
+    this.setState(() => ({
+      question: '',
+      answer: ''
+    }));
+  }
+
   render() {
-    const title = this.props.navigation.state.params.title;
+    const { navigation, onCardAdd } = this.props;
+    const { title } = navigation.state.params;
 
     return (
       <View style={styles.container}>
         <TextInput style={styles.input}
           placeholder='Question'
+          value={this.state.question}
           onChangeText={question => this.setState(state => ({ ...state, question }))} />
         <TextInput style={styles.input}
           placeholder='Answer'
+          value={this.state.answer}
           onChangeText={answer => this.setState(state => ({ ...state, answer }))} />
-        <Button onPress={() => this.props.addCardToDeck(title, this.state)}>
+        <Button onPress={() => {
+          this.clearForm();
+          onCardAdd(title, this.state);
+        }}>
           <Text style={[whiteText, {padding: 20}]}>Add Question</Text>
         </Button>
       </View>

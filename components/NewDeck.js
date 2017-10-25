@@ -15,15 +15,23 @@ export default class NewDeck extends React.Component {
     text: ''
   }
 
+  clearInput = () => {
+    this.setState(() => ({ text: '' }));
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={{marginBottom: 30, fontSize: 30}}>What is the title of your new deck?</Text>
         <TextInput style={styles.input}
           placeholder='Deck title'
+          value={this.state.text}
           onChangeText={(text) => this.setState(() => ({ text }))} />
         <Button
-          onPress={() => this.props.addNewDeck(this.state.text)}>
+          onPress={() => {
+            this.clearInput();
+            this.props.onDeckAdd(this.state.text);
+          }}>
             <Text style={[styles.whiteText, {padding: 20}]}>Add Deck</Text>
         </Button>
       </View>
