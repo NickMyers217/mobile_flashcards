@@ -55,6 +55,10 @@ export default class Deck extends React.Component {
   castVote = (vote) => {
     const showScore = this.state.currentQuestion + 1 >= this.props.deck.questions.length;
 
+    if (showScore) {
+      this.props.onQuizComplete();
+    }
+
     this.setState(state => ({
       ...state,
       mainTextProperty: 'question',
@@ -65,23 +69,23 @@ export default class Deck extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    console.log(this.state, this.props);
+    const { navigation, deck, onQuizComplete } = this.props;
+    const { currentQuestion, mainTextProperty, showScore, score} = this.state;
 
     return (
       <View style={{ flex: 1 }}>
         <View style={{ padding: 10 }}>
           <Text style={[styles.mutedText, { fontSize: 30 }]}>
-            {`${this.state.currentQuestion + 1}/${this.props.deck.questions.length}`}
+            {`${currentQuestion + 1}/${deck.questions.length}`}
           </Text>
         </View>
-        {!this.state.showScore &&
+        {!showScore &&
           <View style={styles.container}>
             <Text style={{ fontSize: 30, marginBottom: 5 }}>
-              {this.props.deck.questions[this.state.currentQuestion][this.state.mainTextProperty]}
+              {deck.questions[currentQuestion][mainTextProperty]}
             </Text>
             <Text style={[styles.mutedText, { marginBottom: 30 }]}>
-              {this.state.mainTextProperty[0].toUpperCase() + this.state.mainTextProperty.slice(1)}
+              {mainTextProperty[0].toUpperCase() + mainTextProperty.slice(1)}
             </Text>
             <TouchableOpacity onPress={() => this.toggle()}>
               <View style={styles.toggleButton}>
@@ -99,10 +103,10 @@ export default class Deck extends React.Component {
               </View>
             </TouchableOpacity>
           </View>}
-        {this.state.showScore &&
+        {showScore &&
           <View style={styles.container}>
             <Text style={{ fontSize: 30 }}>
-              {`You got ${this.state.score} out of ${this.props.deck.questions.length} questions correct!`}
+              {`You got ${score} out of ${deck.questions.length} questions correct!`}
             </Text>
           </View>}
       </View>
