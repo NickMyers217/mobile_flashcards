@@ -1,39 +1,26 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
+import Button from './Button';
+import { container, mutedText, colors } from '../utils/styles';
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10
-  },
-  mutedText: {
-    color: '#999'
-  },
+  container,
+  mutedText,
   toggleButton: {
-    marginBottom: 20,
-    width: 160,
-    alignItems: 'center',
-    backgroundColor: '#32A7F4',
-    width: 300
+    backgroundColor: colors.darkBlue,
+    marginBottom: 10
   },
   correctButton: {
-    marginBottom: 20,
-    width: 160,
-    alignItems: 'center',
-    backgroundColor: 'green',
-    width: 300
+    backgroundColor: colors.green,
+    marginBottom: 10
   },
   incorrectButton: {
-    width: 160,
-    alignItems: 'center',
-    backgroundColor: 'red',
-    width: 300
+    backgroundColor: colors.red
   },
   buttonText: {
-    padding: 10,
-    color: 'white'
+    color: colors.white,
+    padding: 10
   }
 });
 
@@ -68,6 +55,10 @@ export default class Deck extends React.Component {
     }));
   }
 
+  restartQuiz = () => {
+    // TODO
+  };
+
   render() {
     const { navigation, deck, onQuizComplete } = this.props;
     const { currentQuestion, mainTextProperty, showScore, score} = this.state;
@@ -87,27 +78,27 @@ export default class Deck extends React.Component {
             <Text style={[styles.mutedText, { marginBottom: 30 }]}>
               {mainTextProperty[0].toUpperCase() + mainTextProperty.slice(1)}
             </Text>
-            <TouchableOpacity onPress={() => this.toggle()}>
-              <View style={styles.toggleButton}>
-                <Text style={styles.buttonText}>Flip</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.castVote('correct')}>
-              <View style={styles.correctButton}>
-                <Text style={styles.buttonText}>Correct</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.castVote('incorrect')}>
-              <View style={styles.incorrectButton}>
-                <Text style={styles.buttonText}>Incorrect</Text>
-              </View>
-            </TouchableOpacity>
+            <Button style={styles.toggleButton} onPress={() => this.toggle()}>
+              <Text style={styles.buttonText}>Flip</Text>
+            </Button>
+            <Button style={styles.correctButton} onPress={() => this.castVote('correct')}>
+              <Text style={styles.buttonText}>Correct</Text>
+            </Button>
+            <Button style={styles.incorrectButton} onPress={() => this.castVote('incorrect')}>
+              <Text style={styles.buttonText}>Incorrect</Text>
+            </Button>
           </View>}
         {showScore &&
           <View style={styles.container}>
-            <Text style={{ fontSize: 30 }}>
+            <Text style={{ fontSize: 30, marginBottom: 30 }}>
               {`You got ${score} out of ${deck.questions.length} questions correct!`}
             </Text>
+            <Button style={{backgroundColor: colors.lightBlue, marginBottom: 10}} onPress={() => {}}>
+              <Text style={styles.buttonText}>Try Again!</Text>
+            </Button>
+            <Button style={{backgroundColor: colors.darkBlue}} onPress={() => navigation.goBack()}>
+              <Text style={styles.buttonText}>Go Back</Text>
+            </Button>
           </View>}
       </View>
     );

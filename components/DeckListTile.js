@@ -1,35 +1,20 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
+import Button from './Button';
+import { container, whiteText, mutedBtnText } from '../utils/styles';
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10
-  },
-  deckTile: {
-    marginBottom: 2,
-    width: 160,
-    alignItems: 'center',
-    backgroundColor: '#2196F3',
-    width: 300
-  },
-  deckTileText: {
-    padding: 10,
-    color: 'white'
-  }
+  container,
+  whiteText,
+  mutedBtnText
 });
 
 const DeckListTile = ({ title='', questions=[], onPress=() => {} }) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={[styles.container, styles.deckTile]}>
-      <Text style={styles.deckTileText}>{title}</Text>
-      <Text style={{color: '#bbb'}}>
-        {`${questions.length} cards`}
-      </Text>
-    </View>
-  </TouchableOpacity>
+  <Button onPress={onPress} style={{height: 75}}>
+    <Text style={[styles.whiteText, {padding: 10}]}>{title}</Text>
+    <Text style={styles.mutedBtnText}>{`${questions.length} cards`}</Text>
+  </Button>
 );
 
 export default DeckListTile;

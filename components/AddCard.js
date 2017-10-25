@@ -1,30 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 
+import Button from './Button';
+import { container, whiteText, input } from '../utils/styles';
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10
-  },
-  input: {
-    marginBottom: 30,
-    height: 40,
-    width: 200,
-    padding: 5
-  },
-  button: {
-    marginBottom: 30,
-    width: 160,
-    alignItems: 'center',
-    backgroundColor: '#2196F3'
-  },
-  buttonText: {
-    padding: 20,
-    color: 'white'
-  }
+  container,
+  whiteText,
+  input
 });
 
 export default class NewDeck extends React.Component {
@@ -44,11 +27,9 @@ export default class NewDeck extends React.Component {
         <TextInput style={styles.input}
           placeholder='Answer'
           onChangeText={answer => this.setState(state => ({ ...state, answer }))} />
-        <TouchableOpacity onPress={() => this.props.addCardToDeck(title, this.state)}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Add Question</Text>
-          </View>
-        </TouchableOpacity>
+        <Button onPress={() => this.props.addCardToDeck(title, this.state)}>
+          <Text style={[whiteText, {padding: 20}]}>Add Question</Text>
+        </Button>
       </View>
     );
   }

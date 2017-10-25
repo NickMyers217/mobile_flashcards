@@ -1,33 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
+import Button from './Button';
+import { container, whiteText, mutedText, colors } from '../utils/styles';
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10
-  },
-  mutedText: {
-    color: '#999'
-  },
-  button: {
-    marginBottom: 20,
-    width: 160,
-    alignItems: 'center',
-    backgroundColor: '#32A7F4',
-    width: 300
-  },
-  buttonLight: {
-    width: 160,
-    alignItems: 'center',
-    backgroundColor: '#0074D1',
-    width: 300
-  },
-  buttonText: {
-    padding: 10,
-    color: 'white'
-  }
+  container,
+  whiteText,
+  mutedText
 });
 
 export default class Deck extends React.Component {
@@ -46,20 +26,20 @@ export default class Deck extends React.Component {
         <Text style={[styles.mutedText, {marginBottom: 40}]}>
           {`${(deck.questions && deck.questions.length) || 0} cards`}
         </Text>
-        <TouchableOpacity
+        <Button
+          style={{backgroundColor: colors.lightBlue, marginBottom: 10}}
           onPress={() => navigation.navigate('AddCard', {title: deck.title})}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Add Card</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
+            <Text style={[styles.whiteText, {padding: 10}]}>Add Card</Text>
+        </Button>
+        <Button
+          style={{backgroundColor: colors.darkBlue}}
           onPress={() => {
-            if(deck.questions && deck.questions.length > 0) { navigation.navigate('Quiz', {title: deck.title}); }
+            if(deck.questions && deck.questions.length > 0) {
+              navigation.navigate('Quiz', {title: deck.title});
+            }
           }}>
-          <View style={styles.buttonLight}>
-            <Text style={styles.buttonText}>Start Quiz</Text>
-          </View>
-        </TouchableOpacity>
+            <Text style={[styles.whiteText, {padding: 10}]}>Start Quiz</Text>
+        </Button>
       </View>
     );
   }

@@ -2,33 +2,13 @@ import React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-import { getDecks } from '../utils/api';
 import DeckListTile from './DeckListTile';
+import { getDecks } from '../utils/api';
+import { container, mutedText, colors } from '../utils/styles';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10
-  },
-  mutedText: {
-    color: '#999'
-  },
-  icon: {
-    color: '#999'
-  },
-  deckTile: {
-    marginBottom: 2,
-    width: 160,
-    alignItems: 'center',
-    backgroundColor: '#2196F3',
-    width: 300
-  },
-  deckTileText: {
-    padding: 10,
-    color: 'white'
-  }
+  container,
+  mutedText
 });
 
 const DeckList = ({ decks=[], navigation }) => (
@@ -43,8 +23,8 @@ const DeckList = ({ decks=[], navigation }) => (
       />}
     {decks.length === 0 &&
       <View style={styles.container}>
-        <FontAwesome name='frown-o' size={40} style={[styles.icon, { fontSize: 50 }]} />
-        <Text style={[styles.mutedText, { fontSize: 20 }]}>There are no decks here yet!</Text>
+        <FontAwesome name='frown-o' size={40} style={{ color: colors.darkGray, fontSize: 50 }} />
+        <Text style={{ color: colors.darkGray, fontSize: 20 }}>There are no decks here yet!</Text>
       </View>}
   </View>
 );
