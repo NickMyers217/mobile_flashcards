@@ -31,6 +31,7 @@ export default class NewDeck extends React.Component {
           onPress={() => {
             this.clearInput();
             this.props.onDeckAdd(this.state.text);
+            this.props.navigation.navigate('Deck', {title: this.state.text});
           }}>
             <Text style={[styles.whiteText, {padding: 20}]}>Add Deck</Text>
         </Button>
