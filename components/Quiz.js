@@ -56,7 +56,12 @@ export default class Deck extends React.Component {
   }
 
   restartQuiz = () => {
-    // TODO
+    this.setState(() => ({
+      mainTextProperty: 'question',
+      currentQuestion: 0,
+      score: 0,
+      showScore: false
+    }));
   };
 
   render() {
@@ -78,7 +83,7 @@ export default class Deck extends React.Component {
             <Text style={[styles.mutedText, { marginBottom: 30 }]}>
               {mainTextProperty[0].toUpperCase() + mainTextProperty.slice(1)}
             </Text>
-            <Button style={styles.toggleButton} onPress={() => this.toggle()}>
+            <Button style={styles.toggleButton} onPress={this.toggle}>
               <Text style={styles.buttonText}>Flip</Text>
             </Button>
             <Button style={styles.correctButton} onPress={() => this.castVote('correct')}>
@@ -93,7 +98,7 @@ export default class Deck extends React.Component {
             <Text style={{ fontSize: 30, marginBottom: 30 }}>
               {`You got ${score} out of ${deck.questions.length} questions correct!`}
             </Text>
-            <Button style={{backgroundColor: colors.lightBlue, marginBottom: 10}} onPress={() => {}}>
+            <Button style={{backgroundColor: colors.lightBlue, marginBottom: 10}} onPress={this.restartQuiz}>
               <Text style={styles.buttonText}>Try Again!</Text>
             </Button>
             <Button style={{backgroundColor: colors.darkBlue}} onPress={() => navigation.goBack()}>
